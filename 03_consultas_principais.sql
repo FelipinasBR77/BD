@@ -1,11 +1,6 @@
--- ============================================================
--- CONSULTAS PRINCIPAIS — Sistema de Eventos UPE
--- ============================================================
+
 SET search_path = upe_eventos;
 
--- ============================================================
--- CONSULTA 01: Listar todos os eventos ativos com detalhes
--- ============================================================
 SELECT 
     e.id_evento,
     e.titulo,
@@ -28,9 +23,8 @@ LEFT JOIN departamento d  ON e.id_departamento = d.id_departamento
 WHERE e.status IN ('PUBLICADO', 'EM_ANDAMENTO')
 ORDER BY e.data_inicio;
 
--- ============================================================
--- CONSULTA 02: Relatório de inscrições por evento
--- ============================================================
+-- Relatório de inscrições por evento
+
 SELECT 
     e.titulo AS evento,
     e.vagas_totais,
@@ -351,9 +345,8 @@ WHERE NOT EXISTS (
 )
 ORDER BY a.curso, p.nome;
 
--- ============================================================
--- CONSULTA 20: Recursos mais solicitados e disponibilidade
--- ============================================================
+
+-- Recursos mais solicitados e disponibilidade
 SELECT 
     r.nome AS recurso,
     r.tipo,
