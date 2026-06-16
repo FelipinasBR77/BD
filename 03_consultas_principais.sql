@@ -42,7 +42,7 @@ GROUP BY e.id_evento, e.titulo, e.vagas_totais
 ORDER BY e.data_inicio DESC;
 
 -- ============================================================
--- CONSULTA 03: Histórico completo de um participante
+-- Histórico completo de um participante
 -- ============================================================
 SELECT 
     p.nome AS participante,
@@ -65,7 +65,7 @@ WHERE p.id_pessoa = 8  -- trocar pelo id desejado
 ORDER BY ev.data_inicio DESC;
 
 -- ============================================================
--- CONSULTA 04: Ranking de eventos por média de avaliação
+-- Ranking de eventos por média de avaliação
 -- ============================================================
 SELECT 
     e.titulo,
@@ -87,7 +87,7 @@ HAVING COUNT(av.id_avaliacao) > 0
 ORDER BY media_nota DESC, total_avaliacoes DESC;
 
 -- ============================================================
--- CONSULTA 05: Ocupação dos espaços — conflitos potenciais
+-- Ocupação dos espaços — conflitos potenciais
 -- ============================================================
 SELECT 
     es.nome AS espaco,
@@ -107,7 +107,7 @@ WHERE re.data_uso >= CURRENT_DATE
 ORDER BY es.id_espaco, re.data_uso, re.horario_inicio;
 
 -- ============================================================
--- CONSULTA 06: Programação detalhada de um evento
+-- Programação detalhada de um evento
 -- ============================================================
 SELECT 
     prog.data,
@@ -131,7 +131,7 @@ GROUP BY prog.id_programacao, prog.data, prog.horario_inicio, prog.horario_fim,
 ORDER BY prog.data, prog.horario_inicio;
 
 -- ============================================================
--- CONSULTA 07: Certificados emitidos por evento com total de horas
+-- Certificados emitidos por evento com total de horas
 -- ============================================================
 SELECT 
     ev.titulo AS evento,
@@ -147,7 +147,7 @@ GROUP BY ev.id_evento, ev.titulo
 ORDER BY certificados_emitidos DESC;
 
 -- ============================================================
--- CONSULTA 08: Participantes mais ativos (maior número de presenças)
+-- Participantes mais ativos (maior número de presenças)
 -- ============================================================
 SELECT 
     p.nome,
@@ -167,7 +167,7 @@ ORDER BY total_horas_certificadas DESC, eventos_presentes DESC
 LIMIT 20;
 
 -- ============================================================
--- CONSULTA 09: Patrocínios por evento e total arrecadado
+-- Patrocínios por evento e total arrecadado
 -- ============================================================
 SELECT 
     ev.titulo AS evento,
@@ -184,7 +184,7 @@ GROUP BY ev.id_evento, ev.titulo, ev.data_inicio
 ORDER BY total_financeiro DESC NULLS LAST;
 
 -- ============================================================
--- CONSULTA 10: Calendário de eventos — próximos 90 dias
+-- Calendário de eventos — próximos 90 dias
 -- ============================================================
 SELECT 
     ev.data_inicio,
@@ -208,7 +208,7 @@ GROUP BY ev.id_evento, ev.titulo, ev.data_inicio, ev.data_fim,
 ORDER BY ev.data_inicio;
 
 -- ============================================================
--- CONSULTA 11: Dashboard geral do sistema
+-- Dashboard geral do sistema
 -- ============================================================
 SELECT
     (SELECT COUNT(*) FROM evento)                                       AS total_eventos,
@@ -223,7 +223,7 @@ SELECT
     (SELECT ROUND(AVG(nota)::NUMERIC, 2) FROM avaliacao_evento)        AS media_geral_avaliacoes;
 
 -- ============================================================
--- CONSULTA 12: Espaços mais utilizados
+-- Espaços mais utilizados
 -- ============================================================
 SELECT 
     es.nome AS espaco,
@@ -241,7 +241,7 @@ GROUP BY es.id_espaco, es.nome, es.tipo, es.capacidade, cam.nome
 ORDER BY total_reservas DESC;
 
 -- ============================================================
--- CONSULTA 13: Notificações não lidas por pessoa
+-- Notificações não lidas por pessoa
 -- ============================================================
 SELECT 
     p.nome AS destinatario,
@@ -256,7 +256,7 @@ HAVING COUNT(n.id_notificacao) FILTER (WHERE NOT n.lida) > 0
 ORDER BY nao_lidas DESC;
 
 -- ============================================================
--- CONSULTA 14: Eventos por categoria com estatísticas
+-- Eventos por categoria com estatísticas
 -- ============================================================
 SELECT 
     c.nome AS categoria,
@@ -273,7 +273,7 @@ GROUP BY c.id_categoria, c.nome
 ORDER BY total_eventos DESC;
 
 -- ============================================================
--- CONSULTA 15: Validar certificado pelo código
+-- Validar certificado pelo código
 -- ============================================================
 SELECT * FROM fn_validar_certificado('CODIGO_AQUI');
 
@@ -283,7 +283,7 @@ SELECT * FROM fn_validar_certificado(
 );
 
 -- ============================================================
--- CONSULTA 16: Equipe de organização de um evento
+-- Equipe de organização de um evento
 -- ============================================================
 SELECT 
     ev.titulo AS evento,
@@ -298,7 +298,7 @@ WHERE eo.id_evento = 1  -- trocar pelo id
 ORDER BY eo.funcao, p.nome;
 
 -- ============================================================
--- CONSULTA 17: Log de auditoria dos últimos eventos alterados
+-- Log de auditoria dos últimos eventos alterados
 -- ============================================================
 SELECT 
     la.executado_em,
@@ -313,7 +313,7 @@ ORDER BY la.executado_em DESC
 LIMIT 30;
 
 -- ============================================================
--- CONSULTA 18: Palestrantes com mais participações
+-- Palestrantes com mais participações
 -- ============================================================
 SELECT 
     pal.nome AS palestrante,
@@ -331,7 +331,7 @@ GROUP BY pal.id_palestrante, pal.nome, pal.instituicao, pal.email
 ORDER BY total_participacoes DESC;
 
 -- ============================================================
--- CONSULTA 19: Alunos que nunca se inscreveram em nenhum evento
+-- Alunos que nunca se inscreveram em nenhum evento
 -- ============================================================
 SELECT 
     p.nome, p.email, p.tipo,
